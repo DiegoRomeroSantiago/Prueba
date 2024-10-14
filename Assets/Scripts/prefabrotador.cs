@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class prefabrotador : MonoBehaviour
 {
+    [SerializeField] int fuerzaMovimiento;
     Rigidbody rb;
     
     void Start()
