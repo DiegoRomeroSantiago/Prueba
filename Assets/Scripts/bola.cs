@@ -8,11 +8,14 @@ public class bola : MonoBehaviour
     [SerializeField] int fuerzaMovimiento;
     [SerializeField] int fuerzaSalto;
     [SerializeField] float rayoSuelo;
+    int vida;
+    int puntuacion;
     float w;
     float s;
     Rigidbody rb;
     void Start()
     {
+        vida = 1;
         rb = GetComponent<Rigidbody>();
     }
     void Update()
@@ -21,7 +24,7 @@ public class bola : MonoBehaviour
          w = Input.GetAxisRaw("Vertical");
          s = Input.GetAxisRaw("Horizontal");
 
-        if (rb != null) 
+        if (detectarsuelo()) 
         {
             salto();            
         }
@@ -48,5 +51,21 @@ public class bola : MonoBehaviour
         return tocasuelo;
 
         
+    }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("recogible"))
+        {
+            puntuacion = puntuacion + 1;
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Dano"))
+        {
+            vida = vida - 1;
+        }
     }
 }

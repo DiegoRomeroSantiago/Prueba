@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class ParedCubos : MonoBehaviour
 {
-
+    [SerializeField] private Rigidbody[] rbs;
     private bool iniciarTimer;
+    private float timer;
 
-    // Update is called once per frame
+
+    private void Start()
+    {
+        rbs=GetComponentsInChildren<Rigidbody>();
+        iniciarTimer = false;
+        timer = 2;
+    }
     private void Update()
     {
         if (iniciarTimer)
         {
-           
+           timer = timer - Time.unscaledDeltaTime;
+            if (timer <= 0) 
+            {
+                Time.timeScale = 1.0f;
+                for (int i = 0; i < rbs.Length; i++)
+                {
+                    rbs[i].useGravity = true;
+                }
+            }
         }
     }
     private void OnTriggerEnter(Collider other)
