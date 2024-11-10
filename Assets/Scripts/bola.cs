@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class bola : MonoBehaviour
@@ -11,17 +12,22 @@ public class bola : MonoBehaviour
     [SerializeField] float rayoSuelo;
     [SerializeField] TMP_Text textoVidas;
     [SerializeField] TMP_Text textoPuntos;
+    [SerializeField] GameObject perder;
+    [SerializeField] GameObject ganar;
     Vector3 inicio = new Vector3(-926, 1209, 69);
-    int vida;
-    int puntuacion;
+    [SerializeField] int vida;
+    [SerializeField] int puntuacion;
     float w;
     float s;
     Rigidbody rb;
     void Start()
     {
-        //transform.position = inicio;
+        transform.position = inicio;
         vida = 3;
+        puntuacion = 0;
+        Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
+
     }
     void Update()
     {
@@ -36,7 +42,13 @@ public class bola : MonoBehaviour
             salto();            
         }
 
-        
+        if (vida<=0)
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene(0);
+        }
+
+
 
     }
     private void FixedUpdate()
@@ -69,9 +81,15 @@ public class bola : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject.CompareTag("Danho"))
+        if (other.CompareTag("danho"))
         {
             vida = vida - 1;
+        }
+
+        if (other.CompareTag("meta"))
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene(0);
         }
     }
 }
