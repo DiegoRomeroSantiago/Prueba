@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
@@ -8,6 +9,9 @@ public class bola : MonoBehaviour
     [SerializeField] int fuerzaMovimiento;
     [SerializeField] int fuerzaSalto;
     [SerializeField] float rayoSuelo;
+    [SerializeField] TMP_Text textoVidas;
+    [SerializeField] TMP_Text textoPuntos;
+    Vector3 inicio = new Vector3(-926, 1209, 69);
     int vida;
     int puntuacion;
     float w;
@@ -15,11 +19,14 @@ public class bola : MonoBehaviour
     Rigidbody rb;
     void Start()
     {
-        vida = 1;
+        //transform.position = inicio;
+        vida = 3;
         rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
+        textoPuntos.SetText("Puntos:" + puntuacion);
+        textoVidas.SetText("Vidas:" + vida);
 
          w = Input.GetAxisRaw("Vertical");
          s = Input.GetAxisRaw("Horizontal");
@@ -29,6 +36,7 @@ public class bola : MonoBehaviour
             salto();            
         }
 
+        
 
     }
     private void FixedUpdate()
@@ -48,9 +56,7 @@ public class bola : MonoBehaviour
     bool detectarsuelo()
     {
         bool tocasuelo = Physics.Raycast(gameObject.transform.position, Vector3.down, rayoSuelo);
-        return tocasuelo;
-
-        
+        return tocasuelo;   
     }
 
 
@@ -63,7 +69,7 @@ public class bola : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject.CompareTag("Dano"))
+        if (other.gameObject.CompareTag("Danho"))
         {
             vida = vida - 1;
         }
