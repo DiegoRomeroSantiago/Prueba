@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 
 public class bola : MonoBehaviour
 {
@@ -15,8 +15,8 @@ public class bola : MonoBehaviour
     [SerializeField] GameObject perder;
     [SerializeField] GameObject ganar;
     Vector3 inicio = new Vector3(-926, 1209, 69);
-    [SerializeField] int vida;
-    [SerializeField] int puntuacion;
+    int vida;
+    int puntuacion;
     float w;
     float s;
     Rigidbody rb;
